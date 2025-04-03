@@ -8,10 +8,10 @@ async function handleRequest(request) {
   // Verifica si es el subdominio cdn
   if (url.hostname === 'cdn.comunidad-n8n.com') {
     // Obtén el path de la URL original
-    const path = url.pathname
+    const path = url.pathname.startsWith('/assets/') ? url.pathname : `/assets${url.pathname}`
     
     // Construye la nueva URL de GitHub
-    const githubUrl = `https://raw.githubusercontent.com/aitorroma/comunidad-n8n-blog/main/assets${path}`
+    const githubUrl = `https://raw.githubusercontent.com/aitorroma/comunidad-n8n-blog/main${path}`
     
     try {
       // Realiza la petición a GitHub
