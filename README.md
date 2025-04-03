@@ -4,10 +4,19 @@ Este Worker de Cloudflare redirige las peticiones de `cdn.comunidad-n8n.com` a l
 
 ## Funcionamiento
 
-Cuando se hace una petición a `cdn.comunidad-n8n.com/imagen.jpg`, el Worker:
-1. Redirige la petición a `https://raw.githubusercontent.com/aitorroma/comunidad-n8n-blog/main/assets/imagen.jpg`
-2. Añade headers de caché para mejorar el rendimiento
-3. Maneja errores y devuelve 404 si el archivo no existe
+El Worker soporta dos formatos de URL:
+
+1. Con /assets/ explícito:
+```
+cdn.comunidad-n8n.com/assets/imagen.jpg
+→ raw.githubusercontent.com/aitorroma/comunidad-n8n-blog/main/assets/imagen.jpg
+```
+
+2. Sin /assets/ (se añade automáticamente):
+```
+cdn.comunidad-n8n.com/imagen.jpg
+→ raw.githubusercontent.com/aitorroma/comunidad-n8n-blog/main/assets/imagen.jpg
+```
 
 ## Instalación
 
@@ -35,8 +44,10 @@ wrangler deploy
    - Destino: `comunidad-n8n.com`
    - Proxy status: Activado (naranja)
 
-## Uso
+## Características
 
-Una vez desplegado, puedes usar las URLs de la siguiente manera:
-- Original: `https://raw.githubusercontent.com/aitorroma/comunidad-n8n-blog/main/assets/imagen.jpg`
-- Nueva: `https://cdn.comunidad-n8n.com/imagen.jpg`
+- Redirección automática a GitHub
+- Soporte para rutas con y sin /assets/
+- Caché de 24 horas para mejor rendimiento
+- Headers CORS para uso desde cualquier dominio
+- Manejo de errores con respuestas 404 apropiadas
