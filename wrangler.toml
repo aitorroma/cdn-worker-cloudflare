@@ -1,0 +1,7 @@
+name = "cdn-worker"
+main = "src/worker.js"
+compatibility_date = "2024-03-26"
+
+routes = [
+  { pattern = "cdn.comunidad-n8n.com/*", zone_name = "comunidad-n8n.com" }
+]
